@@ -1,0 +1,96 @@
+<InsertScreen>:
+    FloatLayout:
+        # Transparent overlay to close menu when clicking outside
+        Button:
+            id: menu_overlay
+            background_color: 0,0,0,0
+            size_hint: 1, 1
+            pos_hint: {'x':0, 'y':0}
+            opacity: 0
+            disabled: True
+            on_release: root.close_menu()
+        # Menu button at top right
+        Button:
+            id: menu_btn
+            text: '...'
+            size_hint: 0.15, 0.08
+            pos_hint: {'right': 0.98, 'top': 0.98}
+            on_release: root.open_menu()
+        # Amount field (15% from top, 15% left/right, 70% width)
+        TextInput:
+            id: amount_input
+            hint_text: 'Amount'
+            input_filter: 'float'
+            multiline: False
+            size_hint: 0.7, 0.07
+            pos_hint: {'x': 0.15, 'top': 0.85}
+        # Description field (twice as tall as amount/date)
+        TextInput:
+            id: description_input
+            hint_text: 'Description'
+            multiline: True
+            size_hint: 0.7, 0.14
+            pos_hint: {'x': 0.15, 'top': 0.75}
+        # Date field
+        TextInput:
+            id: date_input
+            hint_text: 'Date (YYYY-MM-DD)'
+            multiline: False
+            size_hint: 0.7, 0.07
+            pos_hint: {'x': 0.15, 'top': 0.58}
+          
+        # Buttons at the bottom, with a large vertical gap above
+        BoxLayout:
+            size_hint: 0.7, 0.07
+            pos_hint: {'x': 0.15, 'y': 0.15}
+            orientation: 'horizontal'
+            spacing: self.height * 2  # gap between buttons is twice button height
+            Label:
+                id: error_label
+                text: ''
+                color: 1,0,0,1
+                font_size: '16sp'
+                size_hint_x: 1
+                size_hint_y: None
+                height: dp(30)
+            Button:
+                text: 'OK'
+                on_press: root.process_entry()
+            Button:
+                text: 'Cancel'
+                on_press: root.clear_fields()
+        # Dropdown menu (at end for top z-order)
+        BoxLayout:
+            id: menu_dropdown
+            orientation: 'vertical'
+            size_hint: 0.5, None
+            height: self.minimum_height
+            pos_hint: {'right': 0.98, 'top': 0.92}
+            opacity: 0
+            disabled: True
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: 0.95, 0.95, 0.95, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15]
+            Button:
+                text: 'Import data'
+                size_hint_y: None
+                height: dp(60)
+                font_size: '20sp'
+                on_release: root.menu_option_selected('Import data')
+            Button:
+                text: 'Export data'
+                size_hint_y: None
+                height: dp(60)
+                font_size: '20sp'
+                on_release: root.menu_option_selected('Export data')
+            Button:
+                text: 'Close'
+                size_hint_y: None
+                height: dp(60)
+                font_size: '20sp'
+                on_release: root.close_menu() 
