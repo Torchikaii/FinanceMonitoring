@@ -1,0 +1,40 @@
+<InsertScreen>:
+    FloatLayout:
+        # Amount field (15% from top, 15% left/right, 70% width)
+        TextInput:
+            id: amount_input
+            hint_text: 'Amount'
+            input_filter: 'float'
+            multiline: False
+            size_hint: 0.7, 0.07
+            pos_hint: {'x': 0.15, 'top': 0.85}
+
+        # Description field (twice as tall as amount/date)
+        TextInput:
+            id: description_input
+            hint_text: 'Description'
+            multiline: True
+            size_hint: 0.7, 0.14
+            pos_hint: {'x': 0.15, 'top': 0.75}
+
+        # Date field
+        TextInput:
+            id: date_input
+            hint_text: 'Date (YYYY-MM-DD)'
+            multiline: False
+            size_hint: 0.7, 0.07
+            pos_hint: {'x': 0.15, 'top': 0.58}
+
+        # Buttons at the bottom, with a large vertical gap above
+        BoxLayout:
+            size_hint: 0.7, 0.07
+            pos_hint: {'x': 0.15, 'y': 0.15}
+            orientation: 'horizontal'
+            spacing: self.height * 2  # gap between buttons is twice button height
+
+            Button:
+                text: 'OK'
+                # on_press: root.process_entry()  # Placeholder for future logic
+            Button:
+                text: 'Cancel'
+                on_press: root.clear_fields() 
